@@ -40,6 +40,31 @@ Este repositório inclui um widget front-end pronto para incorporar no **umarece
 
 > Nota: em instalações WPRM diferentes, o endpoint pode variar. O widget aceita `wprmEndpoint` customizado.
 
+## Se estiver tudo na raiz (sem pastas `src/` e `demo/`)
+
+Se preferir uma estrutura simples com os ficheiros todos na mesma pasta:
+
+- `index.html`
+- `recipe-assistant.js`
+- `recipe-assistant.css`
+
+use este snippet:
+
+```html
+<link rel="stylesheet" href="./recipe-assistant.css" />
+<div id="uma-receita-assistant"></div>
+<script src="./recipe-assistant.js"></script>
+<script>
+  new UmaReceitaAssistantWidget({
+    mount: '#uma-receita-assistant',
+    siteUrl: 'https://umareceita.pt',
+    wprmEndpoint: 'https://umareceita.pt/wp-json/wp/v2/wprm_recipe?per_page=100&_embed',
+  }).init();
+</script>
+```
+
+Este formato evita erros de caminho quando não existe a organização em subpastas.
+
 ## Mapeamento de dados WPRM
 
 O widget tenta extrair ingredientes de campos comuns de receitas WPRM:
