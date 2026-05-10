@@ -1,22 +1,19 @@
 (function () {
   const CATEGORY_KEYWORDS = {
-    carne: [
-      'carne',
-      'frango',
-      'vaca',
-      'porco',
-      'peru',
-      'novilho',
-      'bife',
-      'entrecosto',
-      'chouriço',
-      'presunto'
-    ],
-    peixe: ['peixe', 'salmão', 'atum', 'bacalhau', 'dourada', 'robalo', 'sardinha', 'camarão'],
-    vegetariano: ['tofu', 'lentilhas', 'grão', 'feijão', 'cogumelos', 'espinafres', 'courgette'],
-    doce: ['chocolate', 'açúcar', 'natas', 'baunilha', 'canela', 'leite condensado'],
-    sobremesa: ['chocolate', 'açúcar', 'natas', 'baunilha', 'canela', 'gelatina']
+    entradas: ['entrada', 'entradas', 'aperitivo', 'canape'],
+    saladas: ['salada', 'saladas', 'alface', 'tomate', 'vinagrete'],
+    petiscos: ['petisco', 'petiscos', 'tapas', 'snack'],
+    pao: ['pao', 'focaccia', 'broa', 'baguete'],
+    do_mundo: ['do mundo', 'internacional', 'mexicano', 'italiano', 'asiatico', 'indiano'],
+    peixe: ['peixe', 'salmao', 'atum', 'bacalhau', 'dourada', 'robalo', 'sardinha', 'camarao'],
+    carne: ['carne', 'frango', 'vaca', 'porco', 'peru', 'novilho', 'bife', 'entrecosto', 'chourico', 'presunto'],
+    bolos: ['bolo', 'bolos', 'pao de lo', 'cheesecake'],
+    sobremesas: ['sobremesa', 'sobremesas', 'pudim', 'mousse', 'gelatina'],
+    biscoitos: ['biscoito', 'biscoitos', 'cookie'],
+    muffins: ['muffin', 'muffins', 'cupcake']
   };
+
+  const SURPRISE_CATEGORY = 'surpreende-me';
 
   const SWEET_INGREDIENTS = ['chocolate', 'açúcar', 'natas', 'baunilha', 'caramelo', 'bolacha'];
 
@@ -139,6 +136,11 @@
     return words.some((word) => candidates.some((c) => c.includes(word) || word.includes(c)));
   }
 
+  function recipeMatchesCategory(recipe, category) {
+    if (!category || category === SURPRISE_CATEGORY) return true;
+    return containsAny(CATEGORY_KEYWORDS[category] || [category], recipe.categories.concat(recipe.ingredients));
+  }
+
   function categoryLooksIncompatible(selectedCategory, userIngredients) {
     if (selectedCategory !== 'carne') return false;
 
@@ -160,11 +162,11 @@
       if (containsAny([ingredient], userIngredients)) score += 3;
     });
 
-    if (category) {
+    if (category && category !== SURPRISE_CATEGORY) {
       if (containsAny(CATEGORY_KEYWORDS[category] || [category], recipe.categories.concat(recipe.ingredients))) {
         score += 4;
       } else {
-        score -= 2;
+        score -= 6;
       }
     }
 
@@ -223,11 +225,18 @@
               Tipo de prato (opcional)
               <select name="category">
                 <option value="">Sem preferência</option>
-                <option value="carne">Carne</option>
+                <option value="entradas">Entradas</option>
+                <option value="saladas">Saladas</option>
+                <option value="petiscos">Petiscos</option>
+                <option value="pao">Pão</option>
+                <option value="do_mundo">Do Mundo</option>
                 <option value="peixe">Peixe</option>
-                <option value="vegetariano">Vegetariano</option>
-                <option value="doce">Doce</option>
-                <option value="sobremesa">Sobremesa</option>
+                <option value="carne">Carne</option>
+                <option value="bolos">Bolos</option>
+                <option value="sobremesas">Sobremesas</option>
+                <option value="biscoitos">Biscoitos</option>
+                <option value="muffins">Muffins</option>
+                <option value="surpreende-me">Surpreende-me</option>
               </select>
             </label>
 
@@ -260,7 +269,10 @@
 
         try {
           const recipes = await this.fetchRecipes();
-          const ranked = recipes
+          const categoryFiltered = recipes.filter((recipe) => recipeMatchesCategory(recipe, category));
+          const candidateRecipes = category && category !== SURPRISE_CATEGORY ? categoryFiltered : recipes;
+
+          const ranked = candidateRecipes
             .map((recipe) => {
               const score = scoreRecipe({ recipe, userIngredients, servings, category });
               const missing = computeMissingIngredients(recipe.ingredients, userIngredients);

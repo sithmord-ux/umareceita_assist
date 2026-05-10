@@ -6,7 +6,7 @@ Este repositório inclui um widget front-end pronto para incorporar no **umarece
 
 - Recebe ingredientes que o utilizador já tem.
 - Recebe número de pessoas.
-- Recebe tipo de prato opcional (carne, peixe, vegetariano, sobremesa, doce).
+- Recebe tipo de prato opcional (Entradas, Saladas, Petiscos, Pão, Do Mundo, Peixe, Carne, Bolos, Sobremesas, Biscoitos, Muffins, Surpreende-me).
 - Busca receitas **apenas de endpoints WPRM** (WordPress Recipe Maker).
 - Mostra as 3 melhores sugestões com:
   - fotografia (hero),
@@ -54,4 +54,3 @@ Se o seu payload tiver outro formato, pode passar `mapRecipe` na configuração 
 ## Desenvolvimento local
 
 Abra `demo/index.html` num servidor local simples.
-
