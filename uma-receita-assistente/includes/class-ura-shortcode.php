@@ -18,3 +18,4 @@ class URA_Shortcode {
         return '<div id="uma-receita-assistant" class="ura-assistente-mount"></div>';
     }
 }
+

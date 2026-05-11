@@ -1,8 +1,8 @@
 # Uma Receita — Assistente de Receitas
 
-Plugin WordPress instalável por ZIP para apresentar o shortcode `[uma_receita_assistente]` e, opcionalmente, um botão flutuante nas páginas de receitas.
+Plugin WordPress instalável por ZIP para apresentar a **Pitada**, o assistente de receitas do Uma Receita, através do shortcode `[uma_receita_assistente]` e, opcionalmente, de um botão flutuante nas páginas de receitas.
 
-Esta versão **não usa OpenAI nem IA no frontend**. O assistente recomenda receitas publicadas no WordPress/WPRM através de um endpoint REST próprio e seguro.
+Esta versão **não usa OpenAI nem IA no frontend**. A Pitada recomenda receitas publicadas no WordPress/WPRM através de um endpoint REST próprio e seguro.
 
 ## Estrutura
 
@@ -15,17 +15,29 @@ uma-receita-assistente/
 │   ├── class-ura-rest.php
 │   └── class-ura-admin.php
 ├── assets/
+│   ├── pitada-icon.png
 │   ├── recipe-assistant.js
 │   └── recipe-assistant.css
 └── README.md
 ```
 
+## Ícone da Pitada
+
+O plugin espera encontrar o ficheiro:
+
+```text
+assets/pitada-icon.png
+```
+
+Este ícone é usado no botão flutuante e no cabeçalho do painel da Pitada. O ficheiro deve ser colocado exactamente nessa localização antes de criar o ZIP final do plugin.
+
 ## Instalação
 
-1. Crie um ZIP da pasta `uma-receita-assistente`.
-2. No WordPress, vá a **Plugins > Adicionar novo > Carregar plugin**.
-3. Carregue o ZIP e active o plugin **Uma Receita — Assistente de Receitas**.
-4. Coloque o shortcode numa página, artigo ou bloco HTML/shortcode:
+1. Confirme que `assets/pitada-icon.png` existe dentro da pasta do plugin.
+2. Crie um ZIP da pasta `uma-receita-assistente`.
+3. No WordPress, vá a **Plugins > Adicionar novo > Carregar plugin**.
+4. Carregue o ZIP e active o plugin **Uma Receita — Assistente de Receitas**.
+5. Teste primeiro numa página com o shortcode:
 
 ```text
 [uma_receita_assistente]
@@ -38,6 +50,18 @@ O shortcode renderiza:
 ```
 
 O CSS e o JavaScript são carregados apenas quando o shortcode é renderizado ou quando o botão flutuante estiver activo nas definições.
+
+## Campos da Pitada
+
+O formulário inclui:
+
+- ingredientes disponíveis;
+- ingrediente que a pessoa quer mesmo usar;
+- número de pessoas;
+- dropdown de **tipo de receita**: entrada/petisco, salada, carne, peixe/marisco, vegetariana, pão, bolo, sobremesa, bebida ou Do Mundo;
+- dropdown de **necessidade/intenção**: jantar rápido, almoço leve, económica, verão, air fryer, receber amigos, aproveitar sobras ou algo especial.
+
+A recomendação continua baseada apenas em receitas reais do endpoint do plugin.
 
 ## Endpoint REST
 
@@ -79,23 +103,29 @@ Permite:
 - alterar o texto do botão flutuante;
 - limpar manualmente a cache de receitas.
 
-O botão flutuante fica **desligado por defeito** e nunca abre automaticamente.
+O botão flutuante fica **desligado por defeito** e nunca abre automaticamente. O texto por defeito é:
+
+```text
+Precisa de uma ideia?
+```
 
 ## Segurança
 
 - O frontend chama apenas `URA_ASSISTENTE_CONFIG.endpoint`, passado por `wp_localize_script`.
-- O script recebe também `mount`, `nonce` e `siteUrl` por `wp_localize_script`.
+- O script recebe também `mount`, `nonce`, `siteUrl` e `pluginUrl` por `wp_localize_script`.
 - O endpoint REST não expõe erros técnicos ao frontend.
 - Dados de opções do admin são sanitizados com `sanitize_text_field()` e `sanitize_key()`.
 - IDs são tratados com `absint()`.
 - Saídas PHP usam `esc_html()`, `esc_attr()` e `esc_url()` conforme o contexto.
 - O JavaScript usa `escapeHtml()` e `safeUrl()` antes de renderizar títulos, links, imagens e ingredientes.
 - Os links das receitas abrem na mesma janela, sem forçar nova aba.
+- Não há chamadas externas desnecessárias nem dependências de React ou bibliotecas externas.
 
-## Analytics
+## Analytics GA4
 
 Se `window.gtag` existir, o widget envia eventos GA4:
 
+- `assistente_aberto`
 - `assistente_pesquisa`
 - `assistente_resultado`
 - `assistente_clique_receita`
@@ -112,6 +142,17 @@ zip -r uma-receita-assistente.zip uma-receita-assistente
 ```
 
 Depois carregue `uma-receita-assistente.zip` em **Plugins > Adicionar novo > Carregar plugin**.
+
+## Testes manuais recomendados
+
+- Testar primeiro o shortcode `[uma_receita_assistente]` numa página.
+- Pesquisar por `ovos, farinha, açúcar`.
+- Pesquisar por `camarão, ananás, wraps`.
+- Pesquisar por `bacalhau, batatas, pimentos`.
+- Escolher o tipo `Peixe ou marisco`.
+- Escolher a intenção `Jantar rápido`.
+- Activar temporariamente o botão flutuante e confirmar que mostra o ícone da Pitada e o texto configurado.
+- Confirmar em mobile que os cards mostram a imagem por cima do texto e não criam overflow horizontal.
 
 ## Notas técnicas
 

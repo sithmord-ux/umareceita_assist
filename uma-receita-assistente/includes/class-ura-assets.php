@@ -43,10 +43,11 @@ class URA_Assets {
             'endpoint' => esc_url_raw(rest_url('uma-receita/v1/receitas')),
             'nonce' => wp_create_nonce('wp_rest'),
             'siteUrl' => esc_url_raw(home_url('/')),
+            'pluginUrl' => esc_url_raw(URA_ASSISTENTE_URL),
             'mode' => 'floating_button' === $source ? 'floating' : $mode,
             'source' => sanitize_key($source),
             'postId' => is_singular() ? absint(get_queried_object_id()) : 0,
-            'floatingButtonText' => sanitize_text_field(get_option('ura_assistente_floating_text', 'Tenho ingredientes. O que faço?')),
+            'floatingButtonText' => sanitize_text_field(get_option('ura_assistente_floating_text', 'Precisa de uma ideia?')),
         ));
     }
 

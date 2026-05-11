@@ -30,7 +30,7 @@ class URA_Admin {
         register_setting('ura_assistente_settings', 'ura_assistente_floating_text', array(
             'type' => 'string',
             'sanitize_callback' => 'sanitize_text_field',
-            'default' => 'Tenho ingredientes. O que faço?',
+            'default' => 'Precisa de uma ideia?',
         ));
     }
 
@@ -45,7 +45,7 @@ class URA_Admin {
         }
 
         $mode = sanitize_key(get_option('ura_assistente_floating_mode', 'disabled'));
-        $text = sanitize_text_field(get_option('ura_assistente_floating_text', 'Tenho ingredientes. O que faço?'));
+        $text = sanitize_text_field(get_option('ura_assistente_floating_text', 'Precisa de uma ideia?'));
         ?>
         <div class="wrap">
             <h1><?php echo esc_html__('Uma Receita — Assistente de Receitas', 'uma-receita-assistente'); ?></h1>

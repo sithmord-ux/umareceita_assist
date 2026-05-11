@@ -16,30 +16,56 @@
   box-sizing: border-box;
 }
 
+.ura-assistente-mount {
+  max-width: 100%;
+}
+
 .ur-assistant {
   background: var(--ur-cream);
   border: 1px solid var(--ur-border);
   border-radius: 18px;
   color: var(--ur-text);
   font-family: inherit;
+  max-width: 100%;
   padding: 1.2rem;
 }
 
-.ur-assistant h2 {
+.ur-inline-title {
   color: var(--ur-green-dark);
   font-size: 1.45rem;
   line-height: 1.2;
-  margin: 0 0 .4rem;
+  margin: 0 0 1rem;
 }
 
-.ur-subtitle,
-.ur-small {
+.ur-assistant-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.ur-assistant-intro-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.ur-assistant-intro h2 {
+  margin: 0 0 .35rem;
+  color: var(--ur-green-dark);
+  font-size: 1.35rem;
+  line-height: 1.25;
+}
+
+.ur-assistant-intro p {
+  margin: 0 0 .35rem;
+}
+
+.ur-assistant-intro-note {
   color: var(--ur-gray);
-  margin: 0 0 .7rem;
-}
-
-.ur-small {
-  font-size: .94rem;
+  font-size: .95rem;
 }
 
 .ur-form {
@@ -68,6 +94,7 @@
   color: var(--ur-text);
   font: inherit;
   min-height: 44px;
+  max-width: 100%;
   padding: .62rem .72rem;
   width: 100%;
 }
@@ -110,33 +137,40 @@
 
 .ur-results {
   display: grid;
-  gap: .9rem;
+  gap: 1rem;
   margin-top: 1rem;
 }
 
 .ur-card {
   background: var(--ur-white);
   border: 1px solid var(--ur-border);
-  border-radius: 16px;
+  border-radius: 18px;
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 230px 1fr;
+  gap: 0;
   overflow: hidden;
+  min-height: 190px;
 }
 
 .ur-card img {
-  height: 100%;
-  object-fit: cover;
   width: 100%;
+  height: 100%;
+  min-height: 190px;
+  max-height: 220px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .ur-card-body {
-  padding: .78rem .9rem;
+  padding: 1rem 1.15rem;
 }
 
 .ur-card-body h3 {
-  font-size: 1rem;
-  line-height: 1.25;
-  margin: 0 0 .3rem;
+  font-size: 1.12rem;
+  line-height: 1.3;
+  margin: 0 0 .45rem;
+  color: var(--ur-green-dark);
 }
 
 .ur-card-body h3 a,
@@ -159,7 +193,7 @@
 }
 
 .ur-card-body ul {
-  margin: .25rem 0 .55rem;
+  margin: .25rem 0 .65rem;
   padding-left: 1.1rem;
 }
 
@@ -170,7 +204,8 @@
   color: var(--ur-white);
   display: inline-block;
   font-weight: 700;
-  padding: .5rem .82rem;
+  min-height: 42px;
+  padding: .62rem .95rem;
   text-decoration: none;
 }
 
@@ -180,23 +215,51 @@
 }
 
 .ur-fab {
-  background: var(--ur-terracotta);
-  border: 0;
-  border-radius: 999px;
   bottom: 16px;
-  box-shadow: 0 10px 26px rgba(44, 44, 44, .18);
-  color: var(--ur-white);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 700;
-  padding: .75rem 1rem;
   position: fixed;
   right: 16px;
   z-index: 9998;
 }
 
-.ur-fab:hover {
-  background: var(--ur-terracotta-dark);
+.ura-floating-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: #F47C2C;
+  color: #FFFFFF;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.65rem 0.95rem 0.65rem 0.7rem;
+  font: inherit;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(44, 44, 44, 0.18);
+  cursor: pointer;
+}
+
+.ura-floating-button:hover {
+  background: #C46020;
+}
+
+.ura-floating-button-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.ura-floating-button-icon img {
+  width: 36px;
+  height: 36px;
+  display: block;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.ura-floating-button-text {
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .ur-overlay {
@@ -245,13 +308,45 @@
 }
 
 @media (max-width: 768px) {
+  .ur-assistant {
+    padding: 1rem;
+  }
+
+  .ur-assistant-intro {
+    gap: 0.7rem;
+  }
+
+  .ur-assistant-intro-icon {
+    width: 40px;
+    height: 40px;
+  }
+
   .ur-form,
   .ur-card {
     grid-template-columns: 1fr;
   }
 
+  .ur-card {
+    min-height: 0;
+  }
+
   .ur-card img {
-    max-height: 170px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    max-height: none;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .ur-card-body {
+    padding: 1rem;
+  }
+
+  .ur-btn-link {
+    text-align: center;
+    width: 100%;
   }
 
   .ur-panel {
@@ -274,8 +369,20 @@
   .ur-fab {
     bottom: 10px;
     left: 12px;
-    padding: .7rem .9rem;
     right: 12px;
     text-align: center;
+  }
+
+  .ura-floating-button {
+    justify-content: center;
+    padding: 0.65rem 0.85rem;
+    max-width: calc(100vw - 24px);
+    width: 100%;
+  }
+
+  .ura-floating-button-icon,
+  .ura-floating-button-icon img {
+    width: 32px;
+    height: 32px;
   }
 }
