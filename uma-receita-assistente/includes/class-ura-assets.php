@@ -5,6 +5,7 @@ if (!defined('ABSPATH')) {
 
 class URA_Assets {
     const SCRIPT_HANDLE = 'ura-recipe-assistant';
+    const V2_SCRIPT_HANDLE = 'ura-recipe-assistant-v2';
     const STYLE_HANDLE = 'ura-recipe-assistant';
 
     private $shortcode_required = false;
@@ -21,6 +22,7 @@ class URA_Assets {
         }
 
         $script_path = URA_ASSISTENTE_DIR . 'assets/recipe-assistant.js';
+        $v2_script_path = URA_ASSISTENTE_DIR . 'assets/recipe-assistant-v2.js';
         $style_path  = URA_ASSISTENTE_DIR . 'assets/recipe-assistant.css';
 
         wp_enqueue_style(
@@ -35,6 +37,14 @@ class URA_Assets {
             URA_ASSISTENTE_URL . 'assets/recipe-assistant.js',
             array(),
             file_exists($script_path) ? filemtime($script_path) : URA_ASSISTENTE_VERSION,
+            true
+        );
+
+        wp_enqueue_script(
+            self::V2_SCRIPT_HANDLE,
+            URA_ASSISTENTE_URL . 'assets/recipe-assistant-v2.js',
+            array(self::SCRIPT_HANDLE),
+            file_exists($v2_script_path) ? filemtime($v2_script_path) : URA_ASSISTENTE_VERSION,
             true
         );
 
