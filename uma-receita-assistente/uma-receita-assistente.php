@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Uma Receita — Assistente de Receitas
  * Description: Assistente de receitas baseado nas receitas WPRM publicadas no site Uma Receita.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Uma Receita
  * Text Domain: uma-receita-assistente
  * Requires at least: 6.0
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('URA_ASSISTENTE_VERSION', '1.1.0');
+define('URA_ASSISTENTE_VERSION', '1.2.0');
 define('URA_ASSISTENTE_FILE', __FILE__);
 define('URA_ASSISTENTE_DIR', plugin_dir_path(__FILE__));
 define('URA_ASSISTENTE_URL', plugin_dir_url(__FILE__));
