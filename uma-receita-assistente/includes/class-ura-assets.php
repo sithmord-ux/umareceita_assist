@@ -7,6 +7,7 @@ class URA_Assets {
     const SCRIPT_HANDLE = 'ura-recipe-assistant';
     const V2_SCRIPT_HANDLE = 'ura-recipe-assistant-v2';
     const STYLE_HANDLE = 'ura-recipe-assistant';
+    const LOVABLE_STYLE_HANDLE = 'ura-recipe-assistant-lovable';
 
     private $shortcode_required = false;
     private $floating_required = false;
@@ -24,6 +25,7 @@ class URA_Assets {
         $script_path = URA_ASSISTENTE_DIR . 'assets/recipe-assistant.js';
         $v2_script_path = URA_ASSISTENTE_DIR . 'assets/recipe-assistant-v2.js';
         $style_path  = URA_ASSISTENTE_DIR . 'assets/recipe-assistant.css';
+        $lovable_style_path = URA_ASSISTENTE_DIR . 'assets/recipe-assistant-lovable.css';
 
         wp_enqueue_style(
             self::STYLE_HANDLE,
@@ -31,6 +33,15 @@ class URA_Assets {
             array(),
             file_exists($style_path) ? filemtime($style_path) : URA_ASSISTENTE_VERSION
         );
+
+        if (file_exists($lovable_style_path)) {
+            wp_enqueue_style(
+                self::LOVABLE_STYLE_HANDLE,
+                URA_ASSISTENTE_URL . 'assets/recipe-assistant-lovable.css',
+                array(self::STYLE_HANDLE),
+                filemtime($lovable_style_path)
+            );
+        }
 
         wp_enqueue_script(
             self::SCRIPT_HANDLE,
