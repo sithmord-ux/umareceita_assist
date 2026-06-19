@@ -1,0 +1,265 @@
+/* Pitada V2 — camada visual inspirada no layout Lovable.
+   Mantém a lógica do plugin; altera apenas apresentação. */
+
+.ura-assistente-mount {
+  --ur-radius-xl: 28px;
+  --ur-shadow-soft: 0 22px 70px rgba(44, 44, 44, 0.10);
+  --ur-shadow-card: 0 10px 30px rgba(44, 44, 44, 0.07);
+}
+
+.ura-assistente-mount .ur-assistant {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 86% 8%, rgba(244, 124, 44, 0.12), transparent 30%),
+    linear-gradient(135deg, #FFF9F3 0%, #FFFFFF 62%, #FFF9F3 100%);
+  border: 1px solid rgba(217, 217, 217, 0.95);
+  border-radius: var(--ur-radius-xl);
+  box-shadow: var(--ur-shadow-soft);
+  padding: clamp(1.35rem, 3vw, 2.45rem);
+}
+
+.ura-assistente-mount .ur-assistant::before {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  right: -90px;
+  top: -90px;
+  border-radius: 999px;
+  background: rgba(141, 154, 90, 0.10);
+  pointer-events: none;
+}
+
+.ura-assistente-mount .ur-inline-title {
+  margin: 0 0 1.1rem;
+  color: var(--ur-gray);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ura-assistente-mount .ur-assistant-intro {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.95rem;
+  align-items: start;
+  max-width: 820px;
+  margin: 0 0 1.5rem;
+}
+
+.ura-assistente-mount .ur-assistant-intro-icon {
+  width: 44px;
+  height: 44px;
+  margin-top: 0.15rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(244, 124, 44, 0.22);
+}
+
+.ura-assistente-mount .ur-assistant-intro h2 {
+  margin: 0 0 0.55rem;
+  color: var(--ur-text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 4vw, 3.55rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.ura-assistente-mount .ur-assistant-intro h2::after {
+  content: " agora quê?";
+  display: block;
+  color: var(--ur-terracotta);
+  font-style: italic;
+}
+
+.ura-assistente-mount .ur-assistant-intro p {
+  max-width: 680px;
+  margin: 0 0 0.45rem;
+  color: var(--ur-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.ura-assistente-mount .ur-assistant-intro-note {
+  color: var(--ur-gray) !important;
+  font-size: 0.95rem !important;
+}
+
+.ura-assistente-mount .ur-form {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(217, 217, 217, 0.9);
+  border-radius: 24px;
+  box-shadow: var(--ur-shadow-card);
+  backdrop-filter: blur(6px);
+}
+
+.ura-assistente-mount .ur-form label {
+  gap: 0.45rem;
+  color: var(--ur-text);
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.ura-assistente-mount .ur-form input,
+.ura-assistente-mount .ur-form select {
+  min-height: 52px;
+  border: 1px solid rgba(217, 217, 217, 0.95);
+  border-radius: 999px;
+  background: #FFFFFF;
+  padding: 0.78rem 1rem;
+  box-shadow: none;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.ura-assistente-mount .ur-form input:focus,
+.ura-assistente-mount .ur-form select:focus {
+  border-color: rgba(244, 124, 44, 0.7);
+  box-shadow: 0 0 0 4px rgba(244, 124, 44, 0.12);
+  outline: none;
+}
+
+.ura-assistente-mount .ur-form button {
+  min-height: 54px;
+  border-radius: 999px;
+  background: var(--ur-terracotta);
+  color: #FFFFFF;
+  font-weight: 800;
+  box-shadow: 0 14px 30px rgba(244, 124, 44, 0.24);
+  transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.ura-assistente-mount .ur-form button:hover {
+  background: var(--ur-terracotta-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 18px 38px rgba(196, 96, 32, 0.28);
+}
+
+.ura-assistente-mount .ur-warning,
+.ura-assistente-mount .ur-ideas {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(217, 217, 217, 0.95);
+  border-left: 5px solid var(--ur-terracotta);
+  border-radius: 22px;
+  box-shadow: var(--ur-shadow-card);
+  margin-top: 1.15rem;
+  padding: 1.1rem 1.2rem;
+}
+
+.ura-assistente-mount .ur-ideas p {
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+}
+
+.ura-assistente-mount .ur-ideas ul {
+  margin: 0.5rem 0 0.75rem;
+  padding-left: 1.25rem;
+}
+
+.ura-assistente-mount .ur-ideas li {
+  margin-bottom: 0.45rem;
+}
+
+.ura-assistente-mount .ur-results {
+  position: relative;
+  z-index: 1;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.ura-assistente-mount .ur-card {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(217, 217, 217, 0.9);
+  border-radius: 24px;
+  box-shadow: var(--ur-shadow-card);
+  grid-template-columns: minmax(190px, 230px) 1fr;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.ura-assistente-mount .ur-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(44, 44, 44, 0.12);
+}
+
+.ura-assistente-mount .ur-card img {
+  min-height: 210px;
+  max-height: 250px;
+}
+
+.ura-assistente-mount .ur-card-body {
+  padding: 1.15rem 1.25rem;
+}
+
+.ura-assistente-mount .ur-card-body h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.28rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.ura-assistente-mount .ur-btn-link,
+.ura-assistente-mount .ur-btn-link:visited {
+  background: var(--ur-green);
+  box-shadow: 0 10px 22px rgba(141, 154, 90, 0.20);
+}
+
+.ura-assistente-mount .ur-btn-link:hover {
+  background: var(--ur-green-dark);
+}
+
+.ura-assistente-mount .ura-floating-button {
+  background: #F47C2C;
+  box-shadow: 0 16px 42px rgba(244, 124, 44, 0.34);
+}
+
+.ura-assistente-mount .ur-panel .ur-assistant {
+  box-shadow: none;
+  border-radius: 24px;
+}
+
+@media (max-width: 768px) {
+  .ura-assistente-mount .ur-assistant {
+    border-radius: 22px;
+    padding: 1rem;
+  }
+
+  .ura-assistente-mount .ur-assistant-intro {
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .ura-assistente-mount .ur-assistant-intro h2 {
+    font-size: clamp(1.55rem, 8vw, 2.25rem);
+  }
+
+  .ura-assistente-mount .ur-form {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+    padding: 0.9rem;
+  }
+
+  .ura-assistente-mount .ur-card {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+
+  .ura-assistente-mount .ur-card img {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+    max-height: none;
+  }
+}
